@@ -3,7 +3,7 @@ $title = 'Add Show';
 include('shared/header.php'); ?>
 
 <h2>Add a New Show</h2>
-<form>
+<form method="post" action="insert-show.php">
     <fieldset>
         <label for="name">Name: *</label>
         <input name="name" id="name" required />
