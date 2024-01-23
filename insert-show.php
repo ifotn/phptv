@@ -11,10 +11,9 @@ $service = $_POST['service'];
 
 // connect to db using the PDO (PHP Data Objects Library)
 //$db = new PDO('mysql:host=127.0.0.1;dbname=comp1006', 'root', 'x');
-$db = new PDO('mysql:host=127.0.0.1;dbname=comp1006', 'phpdev', 'x');
+//$db = new PDO('mysql:host=127.0.0.1;dbname=comp1006', 'phpdev', 'x');
+$db = new PDO('mysql:host=172.31.22.43;dbname=Rich100', 'Rich100', 'x');
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-//$db = new PDO('mysql:host=172.31.22.43;dbname=Rich123456789', 'Rich123456789', 'x');
 
 // set up SQL INSERT command
 // NEVER inject variables directly into SQL; vulnerable to SQL Injection Attacks
