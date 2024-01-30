@@ -6,19 +6,19 @@ include('shared/header.php'); ?>
 <form method="post" action="insert-show.php">
     <fieldset>
         <label for="name">Name: *</label>
-        <input name="name" id="name" required />
+        <input name="name" id="name" />
     </fieldset>
     <fieldset>
         <label for="releaseYear">Release Year: *</label>
-        <input name="releaseYear" id="releaseYear" required placeholder="1970" type="number" min="1970" />
+        <input name="releaseYear" id="releaseYear"  placeholder="1970"  />
     </fieldset>
     <fieldset>
         <label for="genre">Genre: *</label>
-        <input name="genre" id="genre" required />
+        <input name="genre" id="genre"  />
     </fieldset>
     <fieldset>
         <label for="service">Service: *</label>
-        <input name="service" id="service" required />
+        <input name="service" id="service"  />
     </fieldset>
     <button>Submit</button>
 </form>

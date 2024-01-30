@@ -8,37 +8,72 @@ echo $name;
 $releaseYear = $_POST['releaseYear'];
 $genre = $_POST['genre'];
 $service = $_POST['service'];
+$ok = true;
 
-// connect to db using the PDO (PHP Data Objects Library)
-//$db = new PDO('mysql:host=127.0.0.1;dbname=comp1006', 'root', 'x');
-//$db = new PDO('mysql:host=127.0.0.1;dbname=comp1006', 'phpdev', 'x');
-$db = new PDO('mysql:host=172.31.22.43;dbname=Rich100', 'Rich100', 'x');
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// input validation before save
+if (empty($name)) {
+    echo 'Name is required<br />';
+    $ok = false;
+}
 
-// set up SQL INSERT command
-// NEVER inject variables directly into SQL; vulnerable to SQL Injection Attacks
-//$sql = "INSERT INTO shows (name, releaseYear, genre, service) VALUES ($name, $releaseYear, $genre, $service)";
+if (empty($releaseYear)) {
+    echo 'Release Year is required<br />';
+    $ok = false;
+}
+else {
+    if (is_integer($releaseYear)) {
+        if ($releaseYear < 1970) {
+            echo 'Release Year must be later than 1969';
+            $ok = false;
+        }
+    }
+    else {
+        echo 'Release Year must be a number > 1969';
+        $ok = false;
+    }
+}
 
-$sql = "INSERT INTO shows (name, releaseYear, genre, service) VALUES (:name, :releaseYear, :genre, :service)";
+if (empty($genre)) {
+    echo 'Genre is required<br />';
+    $ok = false;
+}
 
-// link db connection w/SQL command we want to run
-$cmd = $db->prepare($sql);
+if (empty($service)) {
+    echo 'Service is required<br />';
+    $ok = false;
+}
 
-// map each input to a column in the shows table
-$cmd->bindParam(':name', $name, PDO::PARAM_STR, 100);
-$cmd->bindParam(':releaseYear', $releaseYear, PDO::PARAM_INT);
-$cmd->bindParam(':genre', $genre, PDO::PARAM_STR, 20);
-$cmd->bindParam(':service', $service, PDO::PARAM_STR, 100);
+if ($ok == true) {
+    // connect to db using the PDO (PHP Data Objects Library)
+    //$db = new PDO('mysql:host=127.0.0.1;dbname=comp1006', 'root', 'x');
+    //$db = new PDO('mysql:host=127.0.0.1;dbname=comp1006', 'phpdev', 'x');
+    $db = new PDO('mysql:host=172.31.22.43;dbname=Rich100', 'Rich100', '');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// execute the INSERT (which saves to the db)
-$cmd->execute();
+    // set up SQL INSERT command
+    // NEVER inject variables directly into SQL; vulnerable to SQL Injection Attacks
+    //$sql = "INSERT INTO shows (name, releaseYear, genre, service) VALUES ($name, $releaseYear, $genre, $service)";
 
-// disconnect
-$db = null;
+    $sql = "INSERT INTO shows (name, releaseYear, genre, service) VALUES (:name, :releaseYear, :genre, :service)";
 
-// show msg to user
-echo 'Show Saved';
+    // link db connection w/SQL command we want to run
+    $cmd = $db->prepare($sql);
+
+    // map each input to a column in the shows table
+    $cmd->bindParam(':name', $name, PDO::PARAM_STR, 100);
+    $cmd->bindParam(':releaseYear', $releaseYear, PDO::PARAM_INT);
+    $cmd->bindParam(':genre', $genre, PDO::PARAM_STR, 20);
+    $cmd->bindParam(':service', $service, PDO::PARAM_STR, 100);
+
+    // execute the INSERT (which saves to the db)
+    $cmd->execute();
+
+    // disconnect
+    $db = null;
+
+    // show msg to user
+    echo 'Show Saved';
+}
 ?>
-
 </body>
 </html>
