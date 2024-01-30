@@ -15,6 +15,9 @@
             <a href="add-show.php">Add Show</a>    
         </li>
         <li>
+            <a href="shows.php">Show Library</a>
+        </li>
+        <li>
             <a href="register.php">Register</a>
         </li>
         <li>

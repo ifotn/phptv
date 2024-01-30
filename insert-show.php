@@ -21,7 +21,7 @@ if (empty($releaseYear)) {
     $ok = false;
 }
 else {
-    if (is_integer($releaseYear)) {
+    if (is_numeric($releaseYear)) {
         if ($releaseYear < 1970) {
             echo 'Release Year must be later than 1969';
             $ok = false;
@@ -45,10 +45,7 @@ if (empty($service)) {
 
 if ($ok == true) {
     // connect to db using the PDO (PHP Data Objects Library)
-    //$db = new PDO('mysql:host=127.0.0.1;dbname=comp1006', 'root', 'x');
-    //$db = new PDO('mysql:host=127.0.0.1;dbname=comp1006', 'phpdev', 'x');
-    $db = new PDO('mysql:host=172.31.22.43;dbname=Rich100', 'Rich100', '');
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    include('shared/db.php');
 
     // set up SQL INSERT command
     // NEVER inject variables directly into SQL; vulnerable to SQL Injection Attacks

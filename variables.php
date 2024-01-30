@@ -20,6 +20,8 @@
     echo '<p>Welcome '. $firstName . ' ' . $lastName . '</p>';
     echo "<p>Welcome $firstName $lastName</p>";
 
+    echo is_int(2023);
+
     ?>
 </body>
 </html>
