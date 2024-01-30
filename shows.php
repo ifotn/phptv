@@ -19,7 +19,12 @@ echo '<table><thead><th>Name</th><th>Release Year</th><th>Genre</th><th>Service<
 
 // loop through the dataresult from the query, and display each show name
 foreach ($shows as $show) {
-    echo '<tr><td>' . $show['name'] . '</td></tr>';
+    echo '<tr>
+        <td>' . $show['name'] . '</td>
+        <td>' . $show['releaseYear'] . '</td>
+        <td>' . $show['genre'] . '</td>
+        <td>' . $show['service'] . '</td>
+        </tr>';
 }
 
 // end list
