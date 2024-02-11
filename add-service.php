@@ -9,5 +9,6 @@ include('shared/header.php'); ?>
         <input name="name" id="name" required />
     <button>Submit</button>
 </form>
+</main>
 </body>
 </html>

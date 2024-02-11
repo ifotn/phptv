@@ -5,26 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
     <link rel="stylesheet" href="./css/site.css" />
+    <script src="./js/scripts.js" defer></script>
 </head>
 <body>
-    <h1>PHP TV</h1>
-    <ul>
-        <li>
-            <a href="index.php">Home</a>
-        </li>
-        <li>
-            <a href="add-show.php">Add Show</a>    
-        </li>
-        <li>
-            <a href="shows.php">Show Library</a>
-        </li>
-        <li>
-            <a href="add-service.php">Add Service</a>
-        </li>
-        <li>
-            <a href="register.php">Register</a>
-        </li>
-        <li>
-            <a href="login.php">Login</a>
-        </li>
-    </ul>
+    <header id="navbar">
+      <nav class="navbar-container container">
+        <a href="index.php" class="home-link">
+          <div class="navbar-logo"></div>
+          PHP TV
+        </a>
+        <button
+          type="button"
+          class="navbar-toggle"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="navbar-menu"
+        >
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div id="navbar-menu" class="detached">
+          <ul class="navbar-links">
+            <li class="navbar-item">
+              <a class="navbar-link" href="add-show.php">Add Show</a>
+            </li>
+            <li class="navbar-item">
+              <a class="navbar-link" href="shows.php">Show Library</a>
+            </li>
+            <li class="navbar-item">
+              <a class="navbar-link" href="add-service.php">Services</a>
+            </li>
+            <li class="navbar-item">
+              <a class="navbar-link" href="register.php">Register</a>
+            </li>
+            <li class="navbar-item">
+              <a class="navbar-link" href="login.php">Login</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main>

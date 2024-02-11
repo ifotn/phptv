@@ -39,7 +39,8 @@ include('shared/header.php'); ?>
             ?>
         </select>
     </fieldset>
-    <button>Submit</button>
+    <button class="offset-button">Submit</button>
 </form>
+</main>
 </body>
 </html>

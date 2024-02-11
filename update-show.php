@@ -1,10 +1,10 @@
 <?php
-$title = 'Saving New Show...';
+$title = 'Saving Show Updates...';
 include('shared/header.php');
 
 // capture form inputs into vars
+$showId = $_POST['showId'];  // id value from hidden input on form
 $name = $_POST['name'];
-echo $name;
 $releaseYear = $_POST['releaseYear'];
 $genre = $_POST['genre'];
 $service = $_POST['service'];
@@ -47,11 +47,9 @@ if ($ok == true) {
     // connect to db using the PDO (PHP Data Objects Library)
     include('shared/db.php');
 
-    // set up SQL INSERT command
-    // NEVER inject variables directly into SQL; vulnerable to SQL Injection Attacks
-    //$sql = "INSERT INTO shows (name, releaseYear, genre, service) VALUES ($name, $releaseYear, $genre, $service)";
-
-    $sql = "INSERT INTO shows (name, releaseYear, genre, service) VALUES (:name, :releaseYear, :genre, :service)";
+    // set up SQL UPDATE command
+    $sql = "UPDATE shows SET name = :name, releaseYear = :releaseYear, 
+        genre = :genre, service = :service WHERE showId = :showId";
 
     // link db connection w/SQL command we want to run
     $cmd = $db->prepare($sql);
@@ -61,15 +59,16 @@ if ($ok == true) {
     $cmd->bindParam(':releaseYear', $releaseYear, PDO::PARAM_INT);
     $cmd->bindParam(':genre', $genre, PDO::PARAM_STR, 20);
     $cmd->bindParam(':service', $service, PDO::PARAM_STR, 100);
+    $cmd->bindParam(':showId', $showId, PDO::PARAM_INT);
 
-    // execute the INSERT (which saves to the db)
+    // execute the update (which saves to the db)
     $cmd->execute();
 
     // disconnect
     $db = null;
 
     // show msg to user
-    echo 'Show Saved';
+    echo 'Show Updated';
 }
 ?>
 </main>

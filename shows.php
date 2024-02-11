@@ -15,7 +15,7 @@ $shows = $cmd->fetchAll();
 
 // start the list
 echo '<h1>Show Library</h1>';
-echo '<table><thead><th>Name</th><th>Release Year</th><th>Genre</th><th>Service</th></thead>';
+echo '<table><thead><th>Name</th><th>Release Year</th><th>Genre</th><th>Service</th><th>Actions</th></thead>';
 
 // loop through the dataresult from the query, and display each show name
 foreach ($shows as $show) {
@@ -24,6 +24,14 @@ foreach ($shows as $show) {
         <td>' . $show['releaseYear'] . '</td>
         <td>' . $show['genre'] . '</td>
         <td>' . $show['service'] . '</td>
+        <td>
+            <a href="edit-show.php?showId=' . $show['showId'] . '">
+                Edit
+            </a>&nbsp;
+            <a href="delete-show.php?showId=' .$show['showId'] . '" onclick="return confirmDelete();">
+                Delete
+            </a>
+        </td>
         </tr>';
 }
 
@@ -33,6 +41,6 @@ echo '</table>';
 //disconnect
 $db = null;
 ?>
-
+</main>
 </body>
 </html>
