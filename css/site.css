@@ -326,3 +326,11 @@ select {
     font-family: 'Rubik', sans-serif;
     line-height: 1.6;
 }
+
+a:visited {
+    color: cornflowerblue;
+}
+
+.actions {
+    text-align: center;
+}

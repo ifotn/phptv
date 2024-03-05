@@ -24,7 +24,7 @@ foreach ($shows as $show) {
         <td>' . $show['releaseYear'] . '</td>
         <td>' . $show['genre'] . '</td>
         <td>' . $show['service'] . '</td>
-        <td>
+        <td class="actions">
             <a href="edit-show.php?showId=' . $show['showId'] . '">
                 Edit
             </a>&nbsp;
