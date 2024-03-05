@@ -1,4 +1,5 @@
 <?php
+include('shared/auth.php');
 // read the showId from the url parameter using $_GET   
 $showId = $_GET['showId'];
 

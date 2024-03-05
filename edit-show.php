@@ -1,4 +1,5 @@
 <?php 
+include('shared/auth.php');
 $title = 'Edit Show';
 include('shared/header.php'); 
 

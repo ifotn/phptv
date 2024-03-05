@@ -3,6 +3,11 @@ $title = 'Login';
 require 'shared/header.php';
 ?>
   <h2>Login</h2>
+  <?php
+  if (!empty($_GET['invalid'])) {
+    echo '<h4>INVALID LOGIN</h4>';
+  }
+  ?>
   <h5>Please enter your credentials.</h5>
   <form method="post" action="validate.php">
     <fieldset>

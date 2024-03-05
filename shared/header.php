@@ -27,9 +27,17 @@
         </button>
         <div id="navbar-menu" class="detached">
           <ul class="navbar-links">
-            <li class="navbar-item">
-              <a class="navbar-link" href="add-show.php">Add Show</a>
-            </li>
+            <?php
+            if (session_status() == PHP_SESSION_NONE) {
+              session_start();
+            }         
+            
+            if (!empty($_SESSION['username'])) {
+              echo '<li class="navbar-item">
+                <a class="navbar-link" href="add-show.php">Add Show</a>
+              </li>';
+            }            
+            ?>
             <li class="navbar-item">
               <a class="navbar-link" href="shows.php">Show Library</a>
             </li>

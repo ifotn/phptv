@@ -1,4 +1,5 @@
 <?php
+include('shared/auth.php');
 $title = 'Saving New Show...';
 include('shared/header.php');
 
