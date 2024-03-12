@@ -1,4 +1,7 @@
 <?php 
+// auth check
+include('shared/auth.php');
+
 $title = 'Add Service';
 include('shared/header.php'); ?>
 

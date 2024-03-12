@@ -38,3 +38,32 @@ function confirmDelete() {
     return false;
   }
 }
+
+function togglePassword() {
+  let pwInput = document.getElementById('password');
+  let img = document.getElementById('showHide');
+
+  if (pwInput.type == 'password') {
+    pwInput.type = 'text';
+    img.src = 'img/hide.png';
+  }
+  else {
+    pwInput.type = 'password';
+    img.src = 'img/show.png';
+  }
+}
+
+function comparePasswords() {
+  let password = document.getElementById('password').value;
+  let confirm = document.getElementById('confirm').value;
+  let pwErr = document.getElementById('pwErr');
+
+  if (password != confirm) {
+    pwErr.innerText = 'Passwords do not match';
+    return false;
+  }
+  else {
+    pwErr.innerText = '';
+    return true;
+  }
+}

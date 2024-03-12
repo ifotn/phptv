@@ -1,4 +1,6 @@
 <?php
+include('shared/auth.php');
+
 $title = 'Saving New Service';
 include('shared/header.php');
 

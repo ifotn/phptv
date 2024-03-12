@@ -41,15 +41,27 @@
             <li class="navbar-item">
               <a class="navbar-link" href="shows.php">Show Library</a>
             </li>
-            <li class="navbar-item">
-              <a class="navbar-link" href="add-service.php">Services</a>
-            </li>
-            <li class="navbar-item">
-              <a class="navbar-link" href="register.php">Register</a>
-            </li>
-            <li class="navbar-item">
-              <a class="navbar-link" href="login.php">Login</a>
-            </li>
+            <?php
+            if (!empty($_SESSION['username'])) {
+              echo '<li class="navbar-item">
+                <a class="navbar-link" href="add-service.php">Add Service</a>
+              </li>
+              <li class="navbar-item">
+                <a class="navbar-link" href="logout.php">Logout</a>
+              </li>
+              <li class="navbar-item">
+                <a class="navbar-link" href="#">' . $_SESSION['username'] . '</a>
+              </li>';
+            } 
+            else {
+              echo '<li class="navbar-item">
+                <a class="navbar-link" href="register.php">Register</a>
+              </li>
+              <li class="navbar-item">
+                <a class="navbar-link" href="login.php">Login</a>
+              </li>';
+            }
+            ?>
           </ul>
         </div>
       </nav>

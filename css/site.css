@@ -303,7 +303,7 @@ fieldset {
 }
 
 label {
-    width: 125px;
+    width: 155px;
     display: inline-block;
 }
 
@@ -333,4 +333,8 @@ a:visited {
 
 .actions {
     text-align: center;
+}
+
+#pwErr {
+    color: firebrick;
 }
