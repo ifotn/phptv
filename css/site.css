@@ -335,6 +335,7 @@ a:visited {
     text-align: center;
 }
 
-#pwErr {
+#pwErr, .err {
     color: firebrick;
+    font-weight: bold;
 }

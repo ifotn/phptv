@@ -6,6 +6,11 @@ require('shared/header.php');
   <h5>Passwords must be a minimum of 8 characters,
     including 1 digit, 1 upper-case letter, and 1 lower-case letter.
   </h5>
+  <?php
+  if (!empty($_GET['duplicate'])) {
+    echo '<h4 class="err">Username already exists</h4>';
+  }
+  ?>
   <form method="post" action="save-registration.php">
     <fieldset>
       <label for="username">Username: *</label>
