@@ -4,9 +4,10 @@ $title = 'Saving New Show...';
 include('shared/header.php');
 
 // process photo if any
-if (!empty($_FILES['photo'])) {
+if ($_FILES['photo']['size'] > 0) { 
     $photoName = $_FILES['photo']['name'];
-    echo $photoName . '<br />';
+    $finalName = session_id() . '-' . $photoName;
+    echo $finalName . '<br />';
 
     // in php, file size is bytes (1 kb = 1024 bytes)
     $size = $_FILES['photo']['size']; 
@@ -21,12 +22,17 @@ if (!empty($_FILES['photo'])) {
     $type = mime_content_type($tmp_name);
     echo $type . '<br />';
 
-    // save file to img/uploads
-    move_uploaded_file($tmp_name, 'img/uploads/' . $photoName);
+    if ($type != 'image/jpeg' && $type != 'image/png') {
+        echo 'Photo must be a .jpg or .png';
+        exit();
+    }
+    else {
+        // save file to img/uploads
+        move_uploaded_file($tmp_name, 'img/uploads/' . $finalName);
+    }
+        
 }
 
-
-/*
 // capture form inputs into vars
 $name = $_POST['name'];
 echo $name;
@@ -76,7 +82,8 @@ if ($ok == true) {
     // NEVER inject variables directly into SQL; vulnerable to SQL Injection Attacks
     //$sql = "INSERT INTO shows (name, releaseYear, genre, service) VALUES ($name, $releaseYear, $genre, $service)";
 
-    $sql = "INSERT INTO shows (name, releaseYear, genre, service) VALUES (:name, :releaseYear, :genre, :service)";
+    $sql = "INSERT INTO shows (name, releaseYear, genre, service, photo) 
+    VALUES (:name, :releaseYear, :genre, :service, :photo)";
 
     // link db connection w/SQL command we want to run
     $cmd = $db->prepare($sql);
@@ -86,6 +93,7 @@ if ($ok == true) {
     $cmd->bindParam(':releaseYear', $releaseYear, PDO::PARAM_INT);
     $cmd->bindParam(':genre', $genre, PDO::PARAM_STR, 20);
     $cmd->bindParam(':service', $service, PDO::PARAM_STR, 100);
+    $cmd->bindParam(':photo', $finalName, PDO::PARAM_STR, 100);
 
     // execute the INSERT (which saves to the db)
     $cmd->execute();
@@ -95,7 +103,7 @@ if ($ok == true) {
 
     // show msg to user
     echo 'Show Saved';
-} */
+} 
 ?>
 </main>
 </body>

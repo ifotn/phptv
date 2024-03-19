@@ -15,7 +15,7 @@ $shows = $cmd->fetchAll();
 
 // start the list
 echo '<h1>Show Library</h1>';
-echo '<table><thead><th>Name</th><th>Release Year</th><th>Genre</th><th>Service</th>';
+echo '<table><thead><th>Name</th><th>Photo</th><th>Release Year</th><th>Genre</th><th>Service</th>';
 if (!empty($_SESSION['username'])) {
     echo '<th>Actions</th>';
 }
@@ -25,6 +25,11 @@ echo '</thead>';
 foreach ($shows as $show) {
     echo '<tr>
         <td>' . $show['name'] . '</td>
+        <td>';
+        if ($show['photo'] != null) {
+            echo '<img src="img/uploads/' . $show['photo'] . '" />';
+        }
+        echo '</td>
         <td>' . $show['releaseYear'] . '</td>
         <td>' . $show['genre'] . '</td>
         <td>' . $show['service'] . '</td>';
