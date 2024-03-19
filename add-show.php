@@ -4,7 +4,7 @@ $title = 'Add Show';
 include('shared/header.php'); ?>
 
 <h2>Add a New Show</h2>
-<form method="post" action="insert-show.php">
+<form method="post" action="insert-show.php" enctype="multipart/form-data">
     <fieldset>
         <label for="name">Name: *</label>
         <input name="name" id="name" required />
@@ -39,6 +39,10 @@ include('shared/header.php'); ?>
             $db = null;
             ?>
         </select>
+    </fieldset>
+    <fieldset>
+        <label for="photo">Photo:</label>
+        <input type="file" id="photo" name="photo" />
     </fieldset>
     <button class="offset-button">Submit</button>
 </form>
