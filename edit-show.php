@@ -15,21 +15,27 @@ $service = null;
 // if showId is numeric, fetch show from db
 if (is_numeric($showId)) {
 
-    // connect
-    include('shared/db.php');
+    try {
+        // connect
+        include('shared/db.php');
 
-    // run query & populate show properties for display
-    $sql = "SELECT * FROM shows WHERE showId = :showId";
-    $cmd = $db->prepare($sql);
-    $cmd->bindParam(':showId', $showId, PDO::PARAM_INT);
-    $cmd->execute();
-    $show = $cmd->fetch();  // use fetch() for 1 record instead of fetchAll() which is for a list
+        // run query & populate show properties for display
+        $sql = "SELECT * FROM shows WHERE showId = :showId";
+        $cmd = $db->prepare($sql);
+        $cmd->bindParam(':showId', $showId, PDO::PARAM_INT);
+        $cmd->execute();
+        $show = $cmd->fetch();  // use fetch() for 1 record instead of fetchAll() which is for a list
 
-    $name = $show['name'];
-    $releaseYear = $show['releaseYear'];
-    $genre = $show['genre'];
-    $serviceName = $show['service'];
-    $photo = $show['photo'];  // fill var w/show photo name if there is one
+        $name = $show['name'];
+        $releaseYear = $show['releaseYear'];
+        $genre = $show['genre'];
+        $serviceName = $show['service'];
+        $photo = $show['photo'];  // fill var w/show photo name if there is one
+    }
+    catch (Exception $err) {
+        header('location:error.php');
+        exit();
+    }
 }
 
 ?>

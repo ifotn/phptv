@@ -1,0 +1,4 @@
+ErrorDocument 404 default
+ErrorDocument 404 https://lamp.computerstudi.es/~Rich100/phptv/404.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule \.php$ - [R=404]

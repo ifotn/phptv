@@ -74,34 +74,40 @@ if (empty($service)) {
 }
 
 if ($ok == true) {
-    // connect to db using the PDO (PHP Data Objects Library)
-    include('shared/db.php');
+    try {
+        // connect to db using the PDO (PHP Data Objects Library)
+        include('shared/db.php');
 
-    // set up SQL INSERT command
-    // NEVER inject variables directly into SQL; vulnerable to SQL Injection Attacks
-    //$sql = "INSERT INTO shows (name, releaseYear, genre, service) VALUES ($name, $releaseYear, $genre, $service)";
+        // set up SQL INSERT command
+        // NEVER inject variables directly into SQL; vulnerable to SQL Injection Attacks
+        //$sql = "INSERT INTO shows (name, releaseYear, genre, service) VALUES ($name, $releaseYear, $genre, $service)";
 
-    $sql = "INSERT INTO shows (name, releaseYear, genre, service, photo) 
-    VALUES (:name, :releaseYear, :genre, :service, :photo)";
+        $sql = "INSERT INTO shows (name, releaseYear, genre, service, photo) 
+        VALUES (:name, :releaseYear, :genre, :service, :photo)";
 
-    // link db connection w/SQL command we want to run
-    $cmd = $db->prepare($sql);
+        // link db connection w/SQL command we want to run
+        $cmd = $db->prepare($sql);
 
-    // map each input to a column in the shows table
-    $cmd->bindParam(':name', $name, PDO::PARAM_STR, 100);
-    $cmd->bindParam(':releaseYear', $releaseYear, PDO::PARAM_INT);
-    $cmd->bindParam(':genre', $genre, PDO::PARAM_STR, 20);
-    $cmd->bindParam(':service', $service, PDO::PARAM_STR, 100);
-    $cmd->bindParam(':photo', $finalName, PDO::PARAM_STR, 100);
+        // map each input to a column in the shows table
+        $cmd->bindParam(':name', $name, PDO::PARAM_STR, 100);
+        $cmd->bindParam(':releaseYear', $releaseYear, PDO::PARAM_INT);
+        $cmd->bindParam(':genre', $genre, PDO::PARAM_STR, 20);
+        $cmd->bindParam(':service', $service, PDO::PARAM_STR, 100);
+        $cmd->bindParam(':photo', $finalName, PDO::PARAM_STR, 100);
 
-    // execute the INSERT (which saves to the db)
-    $cmd->execute();
+        // execute the INSERT (which saves to the db)
+        $cmd->execute();
 
-    // disconnect
-    $db = null;
+        // disconnect
+        $db = null;
 
-    // show msg to user
-    echo 'Show Saved';
+        // show msg to user
+        echo 'Show Saved';
+    }
+    catch (Exception $err) {
+        header('location:error.php');
+        exit();
+    }
 } 
 ?>
 </main>

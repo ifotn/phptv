@@ -5,54 +5,59 @@ $password = $_POST['password'];
 $confirm = $_POST['confirm'];
 $ok = true;
 
-// 2. validate inputs
-if (empty($username)) {
-    echo 'Username is required<br />';
-    $ok = false;
-}
+try {
+    // 2. validate inputs
+    if (empty($username)) {
+        echo 'Username is required<br />';
+        $ok = false;
+    }
 
-if (strlen($password) < 8) {
-    echo '8-Char Password is required<br />';
-    $ok = false;
-}
+    if (strlen($password) < 8) {
+        echo '8-Char Password is required<br />';
+        $ok = false;
+    }
 
-if ($password != $confirm) {
-    echo 'Passwords must match<br />';
-    $ok = false;
-}
+    if ($password != $confirm) {
+        echo 'Passwords must match<br />';
+        $ok = false;
+    }
 
-// 3. hash the password
-$passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    // 3. hash the password
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-// 4. connect to db, check for username duplicate & insert new user
-include('shared/db.php');
+    // 4. connect to db, check for username duplicate & insert new user
+    include('shared/db.php');
 
-// 4a. duplicate user check
-$sql = "SELECT * FROM users WHERE username = :username";
-$cmd = $db->prepare($sql);
-$cmd->bindParam(':username', $username, PDO::PARAM_STR, 50);
-$cmd->execute();
-$users = $cmd->fetchAll();
+    // 4a. duplicate user check
+    $sql = "SELECT * FROM users WHERE username = :username";
+    $cmd = $db->prepare($sql);
+    $cmd->bindParam(':username', $username, PDO::PARAM_STR, 50);
+    $cmd->execute();
+    $users = $cmd->fetchAll();
 
-if (!empty($users)) {
-    // username already exists
+    if (!empty($users)) {
+        // username already exists
+        $db = null;
+        header('location:register.php?duplicate=true');
+        exit();
+    }
+
+    $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+    $cmd = $db->prepare($sql);
+    $cmd->bindParam(':username', $username, PDO::PARAM_STR, 50);
+    $cmd->bindParam(':password', $passwordHash, PDO::PARAM_STR, 255);
+    $cmd->execute();
+
+    // 5. disconnect
     $db = null;
-    header('location:register.php?duplicate=true');
+
+    // 6. confirmation
+    echo 'User Saved';
+
+    // 7. redirect to login
+}
+catch (Exception $err) {
+    header('location:error.php');
     exit();
 }
-
-$sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
-$cmd = $db->prepare($sql);
-$cmd->bindParam(':username', $username, PDO::PARAM_STR, 50);
-$cmd->bindParam(':password', $passwordHash, PDO::PARAM_STR, 255);
-$cmd->execute();
-
-// 5. disconnect
-$db = null;
-
-// 6. confirmation
-echo 'User Saved';
-
-// 7. redirect to login
-
 ?>

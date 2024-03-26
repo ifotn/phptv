@@ -79,32 +79,38 @@ else {
 }
 
 if ($ok == true) {
-    // connect to db using the PDO (PHP Data Objects Library)
-    include('shared/db.php');
+    try {
+        // connect to db using the PDO (PHP Data Objects Library)
+        include('shared/db.php');
 
-    // set up SQL UPDATE command
-    $sql = "UPDATE shows SET name = :name, releaseYear = :releaseYear, 
-        genre = :genre, service = :service, photo = :photo WHERE showId = :showId";
+        // set up SQL UPDATE command
+        $sql = "UPDATE shows SET name = :name, releaseYear = :releaseYear, 
+            genre = :genre, service = :service, photo = :photo WHERE showId = :showId";
 
-    // link db connection w/SQL command we want to run
-    $cmd = $db->prepare($sql);
+        // link db connection w/SQL command we want to run
+        $cmd = $db->prepare($sql);
 
-    // map each input to a column in the shows table
-    $cmd->bindParam(':name', $name, PDO::PARAM_STR, 100);
-    $cmd->bindParam(':releaseYear', $releaseYear, PDO::PARAM_INT);
-    $cmd->bindParam(':genre', $genre, PDO::PARAM_STR, 20);
-    $cmd->bindParam(':service', $service, PDO::PARAM_STR, 100);
-    $cmd->bindParam(':showId', $showId, PDO::PARAM_INT);
-    $cmd->bindParam(':photo', $finalName, PDO::PARAM_STR, 100);
+        // map each input to a column in the shows table
+        $cmd->bindParam(':name', $name, PDO::PARAM_STR, 100);
+        $cmd->bindParam(':releaseYear', $releaseYear, PDO::PARAM_INT);
+        $cmd->bindParam(':genre', $genre, PDO::PARAM_STR, 20);
+        $cmd->bindParam(':service', $service, PDO::PARAM_STR, 100);
+        $cmd->bindParam(':showId', $showId, PDO::PARAM_INT);
+        $cmd->bindParam(':photo', $finalName, PDO::PARAM_STR, 100);
 
-    // execute the update (which saves to the db)
-    $cmd->execute();
+        // execute the update (which saves to the db)
+        $cmd->execute();
 
-    // disconnect
-    $db = null;
+        // disconnect
+        $db = null;
 
-    // show msg to user
-    echo 'Show Updated';
+        // show msg to user
+        echo 'Show Updated';
+    }
+    catch (Exception $err) {
+        header('location:error.php');
+        exit();
+    }
 }
 ?>
 </main>

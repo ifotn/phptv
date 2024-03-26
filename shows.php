@@ -2,16 +2,22 @@
 $title = 'Show Library';
 include('shared/header.php');
 
-// connect
-include('shared/db.php');
+try {
+    // connect
+    include('shared/db.php');
 
-// set up query to fetch show data
-$sql = "SELECT * FROM shows";
-$cmd = $db->prepare($sql);
+    // set up query to fetch show data
+    $sql = "SELECT * FROM shows";
+    $cmd = $db->prepare($sql);
 
-// run query & store results in var called $shows
-$cmd->execute();
-$shows = $cmd->fetchAll();
+    // run query & store results in var called $shows
+    $cmd->execute();
+    $shows = $cmd->fetchAll();
+}
+catch (Exception $err) {
+    header('location:error.php');
+    exit();
+}
 
 // start the list
 echo '<h1>Show Library</h1>';
