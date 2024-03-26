@@ -29,12 +29,13 @@ if (is_numeric($showId)) {
     $releaseYear = $show['releaseYear'];
     $genre = $show['genre'];
     $serviceName = $show['service'];
+    $photo = $show['photo'];  // fill var w/show photo name if there is one
 }
 
 ?>
 
 <h2>Edit Show Details</h2>
-<form method="post" action="update-show.php">
+<form method="post" action="update-show.php" enctype="multipart/form-data">
     <fieldset>
         <label for="name">Name: *</label>
         <input name="name" id="name" required value="<?php echo $name; ?>" />
@@ -75,6 +76,16 @@ if (is_numeric($showId)) {
         </select>
     </fieldset>
     <input type="hidden" name="showId" id="showId" value="<?php echo $showId; ?>" />
+    <fieldset>
+        <label for="photo">Photo:</label>
+        <input type="file" id="photo" name="photo" accept="image/*" />
+        <input type="hidden" id="currentPhoto" name="currentPhoto" value="<?php echo $photo; ?>" />
+        <?php
+        if ($photo != null) {
+            echo '<img src="img/uploads/' . $photo . '" alt="Show Photo" />';
+        }
+        ?>
+    </fieldset>
     <button class="offset-button">Submit</button>
 </form>
 </main>

@@ -27,7 +27,7 @@ foreach ($shows as $show) {
         <td>' . $show['name'] . '</td>
         <td>';
         if ($show['photo'] != null) {
-            echo '<img src="img/uploads/' . $show['photo'] . '" />';
+            echo '<img src="img/uploads/' . $show['photo'] . '" class="thumbnail" />';
         }
         echo '</td>
         <td>' . $show['releaseYear'] . '</td>

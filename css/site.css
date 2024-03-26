@@ -339,3 +339,8 @@ a:visited {
     color: firebrick;
     font-weight: bold;
 }
+
+.thumbnail {
+    /*height: 150px;*/
+    width: 90px;
+}
