@@ -5,7 +5,7 @@ $password = $_POST['password'];
 $confirm = $_POST['confirm'];
 $ok = true;
 
-try {
+//try {
     // 2. validate inputs
     if (empty($username)) {
         echo 'Username is required<br />';
@@ -20,6 +20,26 @@ try {
     if ($password != $confirm) {
         echo 'Passwords must match<br />';
         $ok = false;
+    }
+
+    // recaptcha validation w/Google API
+    $apiUrl = 'https://www.google.com/recaptcha/api/siteverify';
+    $secretKey = '6LeYNawpAAAAAE8LnjV8QEzjY8zUsVsjrl9VNJ2p';
+    $response = $_POST['g-recaptcha-response'];
+
+    // make the api call and parse json response
+    $apiResponse = file_get_contents($apiUrl . "?secret=$secretKey&response=$response");
+    $decodedResponse = json_decode($apiResponse);
+
+    if ($decodedResponse->success == false) {
+        echo 'Are you human?';
+        $ok = false;
+    }
+    else {
+        if ($decodedResponse->score < 0.5) {
+            echo 'Are you human?';
+            $ok = false;
+        }
     }
 
     // 3. hash the password
@@ -55,9 +75,9 @@ try {
     echo 'User Saved';
 
     // 7. redirect to login
-}
+/*}
 catch (Exception $err) {
     header('location:error.php');
     exit();
-}
+}*/
 ?>

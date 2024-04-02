@@ -11,7 +11,7 @@ require('shared/header.php');
     echo '<h4 class="err">Username already exists</h4>';
   }
   ?>
-  <form method="post" action="save-registration.php">
+  <form method="post" action="save-registration.php" id="register-form">
     <fieldset>
       <label for="username">Username: *</label>
       <input name="username" id="username" required type="email" placeholder="email@email.com" />
@@ -28,8 +28,20 @@ require('shared/header.php');
         onkeyup="return comparePasswords();"
         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" /><span id="pwErr"></span>
     </fieldset>
-    <button class="offset-button" onclick="return comparePasswords();">Register</button>
+    <!-- <button class="offset-button" onclick="return comparePasswords();">Register</button> -->
+    <button class="g-recaptcha offset-button" 
+        data-sitekey="6LeYNawpAAAAAJYId-ZyyhpoiKrbTyFzDytt1XhH" 
+        data-callback='onSubmit' 
+        data-action='submit'
+        onclick="return comparePasswords();">Register</button>
   </form>
 </main>
+<!-- Google Recaptcha API script -->
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+   function onSubmit(token) {
+     document.getElementById("register-form").submit();
+   }
+ </script>
 </body>
 </html>
